@@ -1,5 +1,5 @@
 /**
- *
+ *Classe que faz a conexão com o Banco
  */
 package dao;
 
@@ -8,78 +8,77 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
+ *
  * @author Sabrina
+ * @since 02/2021
+ * @version 1.0
  *
  */
 public class Connect {
 
-    public  String status = "Não conectou...";
+    public String status = "Não conectou...";
 
+    //Construtor sem parâmetros
     public Connect() {
     }
 
-//Método de Conexão//
-    public  Connection getConexaoMySQL() {
+    //Método de Conexão
+    public Connection getConectionMySQL() {
 
-        Connection connection = null;          //atributo do tipo Connection
+        //atributo do tipo Connection
+        Connection connection = null;
 
         try {
-
-// Carregando o JDBC Driver padrão
+            // Carregando o JDBC Driver padrão
             String driverName = "com.mysql.cj.jdbc.Driver";
 
             Class.forName(driverName);
 
-// Configurando a nossa conexão com um banco de dados//
-            String url = "jdbc:mysql://" + "localhost:3306" + "/" + "challenge";
-            String username = "root";        //nome de um usuário de seu BD
-            String password = "root";      //sua senha de acesso
+            // Configurando a conexão com um banco de dados
+            String url = "jdbc:mysql://localhost:3306/challenge";
+            //usuario e senha
+            String username = "root";
+            String password = "root";
 
             connection = DriverManager.getConnection(url, username, password);
 
-            //Testa sua conexão//
+            //Testa a conexão
             if (connection != null) {
-                status = "STATUS--->Conectado com sucesso!";
+                status = "STATUS : Conectado com sucesso!";
             } else {
-                status = "STATUS--->Não foi possivel realizar conexão";
+                status = "STATUS : Não foi possivel realizar conexão";
             }
 
             return connection;
 
-        } catch (ClassNotFoundException e) {  //Driver não encontrado
-            System.out.println("O driver expecificado nao foi encontrado.");
-            return null;
-        } catch (SQLException e) {
-
-           //Não conseguindo se conectar ao banco
-            System.out.println("Nao foi possivel conectar ao Banco de Dados.");
-
+        } catch (ClassNotFoundException | SQLException e) {
+            //Driver não encontrado
+            System.out.println(e.getMessage());
             return null;
         }
-
     }
 
-    //Método que retorna o status da sua conexão//
-    public  String statusConection() {
+    //Método que retorna o status da conexão
+    public String statusConec() {
         return status;
     }
 
-    //Método que fecha sua conexão//
-    public  boolean FecharConexao() {
+    //Método que fecha a conexão
+    public boolean closeConec() {
 
         try {
-            getConexaoMySQL().close();
+            getConectionMySQL().close();
             return true;
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             return false;
         }
     }
 
-    //Método que reinicia sua conexão//
-    public  java.sql.Connection ReiniciarConexao() {
-        FecharConexao();
-        return getConexaoMySQL();
+    //Método que reinicia a conexão
+    public java.sql.Connection rebootConec() {
+        closeConec();
+        return getConectionMySQL();
     }
-
 
 }

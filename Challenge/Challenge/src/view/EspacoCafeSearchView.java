@@ -1,9 +1,7 @@
+
 package view;
 
-import controller.PessoaController;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-import model.Pessoa;
+import controller.EspacoCafeController;
 
 /**
  *
@@ -12,12 +10,12 @@ import model.Pessoa;
  * @version 1.0
  *
  */
-public class PessoaView extends javax.swing.JFrame {
+public class EspacoCafeSearchView extends javax.swing.JFrame {
 
     /**
-     * Creates new form PessoaView
+     * Creates new form EspacoCafeSearchView
      */
-    public PessoaView() {
+    public EspacoCafeSearchView() {
         initComponents();
     }
 
@@ -32,20 +30,14 @@ public class PessoaView extends javax.swing.JFrame {
 
         mainPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         nameTextField = new javax.swing.JTextField();
-        lastNameTextField = new javax.swing.JTextField();
-        addButton = new javax.swing.JButton();
+        searchButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(300, 245));
-        setResizable(false);
 
-        mainPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Adicionar Pessoa", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
+        mainPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pesquisar Espaço de Café", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
 
-        jLabel1.setText("Nome:");
-
-        jLabel2.setText("Sobrenome:");
+        jLabel1.setText("Nome do espaço");
 
         nameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -53,10 +45,10 @@ public class PessoaView extends javax.swing.JFrame {
             }
         });
 
-        addButton.setText("Adicionar");
-        addButton.addActionListener(new java.awt.event.ActionListener() {
+        searchButton.setText("Pesquisar");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addButtonActionPerformed(evt);
+                searchButtonActionPerformed(evt);
             }
         });
 
@@ -66,42 +58,32 @@ public class PessoaView extends javax.swing.JFrame {
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nameTextField))
-                    .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lastNameTextField)))
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nameTextField)
                 .addContainerGap())
             .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addComponent(addButton)
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addGap(140, 140, 140)
+                .addComponent(searchButton)
+                .addContainerGap(149, Short.MAX_VALUE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(lastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addComponent(addButton)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(searchButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -111,44 +93,22 @@ public class PessoaView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(8, 8, 8))
+                .addContainerGap())
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        // Chamando o método de busca e confirmando a ação
+         EspacoCafeController ec = new EspacoCafeController();
+        ec.search(nameTextField.getText());
+    }//GEN-LAST:event_searchButtonActionPerformed
+
     private void nameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nameTextFieldActionPerformed
-
-    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        // Passando os dados e confirmando a inserção.
-        PessoaController pc = new PessoaController();
-        Pessoa p = new Pessoa();
-        p.setNome(nameTextField.getText());
-        p.setSobrenome(lastNameTextField.getText());
-        
-       //Mensagem que vai aparecer no JOptionPane
-        String msg; 
-        
-        //Resultado da ação de adição
-        boolean res = pc.add(p);        
-        if (res == true) {
-            msg = "Adicionado com sucesso!!!";
-            JOptionPane optionPane = new JOptionPane();
-            optionPane.setMessage(msg);
-            JDialog dialog = optionPane.createDialog(null, "Pessoa Cadastrada!!!");
-            dialog.setVisible(true);
-        } else {
-            msg = "Erro!!!";
-            JOptionPane optionPane = new JOptionPane();
-            optionPane.setMessage(msg);
-            JDialog dialog = optionPane.createDialog(null, "Pessoa não Cadastrada!!!");
-            dialog.setVisible(true);
-        }
-
-    }//GEN-LAST:event_addButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,30 +127,28 @@ public class PessoaView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PessoaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EspacoCafeSearchView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PessoaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EspacoCafeSearchView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PessoaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EspacoCafeSearchView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PessoaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EspacoCafeSearchView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PessoaView().setVisible(true);
+                new EspacoCafeSearchView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField lastNameTextField;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JTextField nameTextField;
+    private javax.swing.JButton searchButton;
     // End of variables declaration//GEN-END:variables
 }

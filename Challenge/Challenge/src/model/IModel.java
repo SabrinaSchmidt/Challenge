@@ -10,5 +10,7 @@ package model;
 
 public interface IModel {
 
+    @Override
+    public String toString();
 
 }
